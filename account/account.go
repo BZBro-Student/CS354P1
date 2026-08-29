@@ -8,8 +8,9 @@ import (
 type Account interface {
 	Balance() float64
 	Accrue()
-	Withdraw()
-	toString()
+	Withdraw(amount float64)
+	Deposit(amount float64)
+	String() string
 }
 
 type account struct {
