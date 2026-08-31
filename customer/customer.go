@@ -5,8 +5,7 @@ type Customer struct {
 	name string
 }
 
-// Func to construct a customer struct while keeping name private
-// from other packages
+// Customer constructor
 func NewCustomer(name string) *Customer {
 	return &Customer{name: name}
 }
