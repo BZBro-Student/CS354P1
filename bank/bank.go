@@ -18,6 +18,7 @@ func (b *bank) Add(account account.Account) {
 }
 
 func (b *bank) Accrue(rate float64) float64 {
+	//Channel where interest will be sent
 	c := make(chan float64)
 	var interest float64
 	for _, a := range b.accounts {

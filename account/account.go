@@ -33,7 +33,10 @@ func (a *account) Balance() float64 {
 	For extra credit: adjusted the function to lock resources during execution
 	+= and -= cause a race condition where subroutines are accessing the
 	variable at the same time causing read and write operation to overlap
-	causing non-determinate behavior
+	causing non-determinate behavior. Similar to the concurrent modification
+	error in Java.
+
+	resource: https://go.dev/tour/concurrency/9
 
 	a.lock.Lock() - locks the resource a once it is available so that only the
 	function can modify/read
