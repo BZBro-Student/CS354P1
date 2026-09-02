@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	ch := make(chan bool)
 	bank := bank.NewBank()
 	ann := customer.NewCustomer("ann")
 	bob := customer.NewCustomer("bob")
@@ -24,7 +25,13 @@ func main() {
 	bobsChecking := account.CheckingAccount(4, bob, 0)
 
 	for i := 0; i < 1000; i++ {
-		go bobsChecking.Deposit(1.00)
+		go bobsChecking.Deposit(1.00, ch)
+	}
+	//ensure all threads have completed by checking that each deposit has channeled true
+	for i := 0; i < 1000; {
+		if <-ch {
+			i++
+		}
 	}
 
 	fmt.Println(bobsChecking.String())

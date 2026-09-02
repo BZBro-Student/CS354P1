@@ -11,7 +11,7 @@ type Account interface {
 	//Adjusted for goroutine and channels
 	Accrue(c chan float64, rate float64)
 	Withdraw(amount float64)
-	Deposit(amount float64)
+	Deposit(amount float64, ch chan bool)
 	String() string
 }
 
@@ -47,19 +47,19 @@ func (a *account) Balance() float64 {
 
 func (a *account) Withdraw(amount float64) {
 	a.lock.Lock()
-	a.balance -= amount
 	defer a.lock.Unlock()
+	a.balance -= amount
 }
 
-func (a *account) Deposit(amount float64) {
+func (a *account) Deposit(amount float64, ch chan bool) {
 	a.lock.Lock()
 	a.balance += amount
-	defer a.lock.Unlock()
+	a.lock.Unlock()
+	ch <- true
 }
 
 func (a *account) String() string {
 	a.lock.Lock()
-
 	defer a.lock.Unlock()
 	return fmt.Sprintf("%d: %s: %.2f", a.number, a.customer.String(), a.balance)
 }
