@@ -1,4 +1,4 @@
-# Project #: Project Name
+# Project #: CS354 - P1
 
 * Author: Broden
 * Class: CS354 Section 
@@ -14,51 +14,52 @@ The extra credit makes 1000 small concurrent deposits into an account with an ex
 
 ## Reflection
 
-Write a two paragraph reflection describing your experience with this
-project.  Talk about what worked well and what was challenging.  
-Did you run into an issue that took some time to figure out?  
-Tell us about it. What did you enjoy, what was less desirable? Feel
-free to add other items (within the two paragraph limit).
-
 For the main part of the assignment I feel it was fairly hard to get used to. I haven't used C a bunch
 as i've only had one class in which we used C so getting used to the GO overall structure was hard to do.
 Probably the first hard thing to implement was the account.go interface while keeping the abstract nature of 
 the account 'class'. It took me a while to figure out that since an empty method counts as an implementation
 the solution is just to not do anything with it and just leave it in the interface and the interface will force
-it's implementation later on. 
+its implementation later on. 
+The hardest part of this assignment by far was the multithreading experiments. Really the only parallelized program
+I've written one that involved piping data output over ssh to batch process some calculations on ras-pis. Multithreading
+truly is a different way of thinking about programming because a big aspect of programming is understanding the flow of instructions
+and for the longest time it's been one instruction and then the next but now you have to consider one instruction which branches into 
+many different instructions at the same time and having to make sure the result of those doesn't interfere with each other or the next instruction
+in the main control flow. I eventually figured out channels after looking at the examples provided and figured out mutexs by looking at the 
+intro to Go webpage.
+
 
 ## Compiling and Using
 
-This section should tell the user how to compile your code.  It is
-also appropriate to instruct the user how to use your code. Does your
-program require user input? If so, what does your user need to know
-about it to use it as quickly as possible?
+Running Test Script:
+Ensure that run-test.sh is set to be executable then use the command: ./run-test.sh
+
+Running Program:
+go run main.go
+
+Creating Executable:
+go build main.go
+
+No user input is needed to run the program
 
 ## Results
 
-This section presents timing and other results of any experiments that
-you were asked to perform as part of the project.
+The test script runs without issue, due to the extra credit it does point
+out a difference in expected output. When run normally the output is as follows:
+"
+3: bob: 153.00
+1: ann: 100.00
+2: ann: 204.00
+Total Interest: 7.00
+4: bob: 1000.00
+"
 
 ## Sources used
-
-If you used any sources outside of the lecture notes, class lab files,
-or text book you need to list them here. If you looked something up on
-stackoverflow.com and fail to cite it in this section it will be
-considered plagiarism and be dealt with accordingly. So be safe CITE!
+Very useful intro to go specifics:
 https://go.dev/tour/concurrency/2
 https://go.dev/tour/concurrency/9
-
-
-----------
-
-## Notes
-
-* This README.md template is using Markdown. Here is some help on using Markdown:
-  [markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-
-
-* Markdown can be edited and viewed natively in most IDEs such as Eclipse and VS Code. Just toggle
-  between the Markdown source and preview tabs.
-
-* To preview your README.md output online, you can copy your file contents to a Markdown editor/previewer
-  such as [https://stackedit.io/editor](https://stackedit.io/editor).
+Userful implementation examples of abstract functions:
+https://www.reddit.com/r/golang/comments/163s90l/how_to_overcome_the_lack_of_abstract_functions_in/
+https://nikhilakki.in/implement-an-abstract-class-in-go
+Interesting read I found that directly relates to module one of the course:
+https://noahs-blog.net/?p=377
